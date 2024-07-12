@@ -37,7 +37,7 @@ To configure the GitHub Actions, you'll have to create the following environment
 - `TB_TOKEN`: Tinybird token named `datadog_integration_token`
 - `TB_HOST`: Tinybird host: "api.us-east" for us or "api" for eu
 - `DATADOG_API_KEY`: Datadog API Key
-- `DATADOG_REGION`: Datadog region: "us|eu" [Context](https://vector.dev/docs/reference/configuration/sinks/datadog_metrics/#region)
+- `DATADOG_SITE`: Datadog site: "ex: datadoghq.com" [Context](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site)
 
 ## How everything works?
 
