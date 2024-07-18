@@ -34,7 +34,7 @@ type = "log_to_metric"
 inputs = [ "parse" ]
 
   [[transforms.to_metric.metrics]]
-  field = "duration_avg"
+  field = "elapsed_time"
   name = "duration"
   namespace = "tb.datasources"
   type = "gauge"
@@ -45,7 +45,7 @@ inputs = [ "parse" ]
     status = "{{result}}"
 
   [[transforms.to_metric.metrics]]
-  field = "read_bytes"
+  field = "rows"
   namespace = "tb.datasources"
   type = "counter"
   increment_by_value = true
