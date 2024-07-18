@@ -39,6 +39,13 @@ To configure the GitHub Actions, you'll have to create the following environment
 - `DATADOG_API_KEY`: Datadog API Key
 - `DATADOG_SITE`: Datadog site: "ex: datadoghq.com" [Context](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site)
 
+## Configure an Image
+If you want, here you are a Dockerfile.
+You can build an image with:
+```bash
+docker build .  --build-arg A_TB_HOST=$TB_HOST --build-arg A_TB_TOKEN=$TB_TOKEN --build-arg A_DATADOG_API_KEY=$DATADOG_API_KEY --build-arg A_DATADOG_SITE=$DATADOG_SITE
+```
+
 ## How everything works?
 
 The process basically uses vector.dev to read data from Tinybird API endpoints, makes basic transformations to generate metrics, and sends data to Datadog. The jobs are scheduled to run every 10 minutes, running the following commands:
