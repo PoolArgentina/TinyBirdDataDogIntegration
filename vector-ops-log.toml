@@ -65,3 +65,14 @@ inputs = [ "parse" ]
     datasource = "{{datasource_name}}"
     event_type = "{{event_type}}"
     status = "{{result}}"
+
+  [[transforms.to_metric.metrics]]
+  field = "rows_quarentine"
+  namespace = "tb.datasources"
+  type = "counter"
+  increment_by_value = true
+
+    [transforms.to_metric.metrics.tags]
+    datasource = "{{datasource_name}}"
+    event_type = "{{event_type}}"
+    status = "{{result}}"

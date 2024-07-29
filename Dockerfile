@@ -14,14 +14,17 @@ ENV TB_TOKEN=$A_TB_TOKEN
 WORKDIR /working_area
 
 # Copio el archivo de configuración de Vector
-COPY vector-pipes-stats.toml .
+COPY vector-pipes-stats-errors.toml .
 COPY vector-ops-log.toml .
+COPY shellCURLs.sh .
 
+ADD shellCURLs.sh /usr/local/bin/shellCURLs.sh
+
+RUN chmod 777 /usr/local/bin/shellCURLs.sh
 
 # Instalo vector
 RUN apk add --no-cache curl bash && \ 
     curl --proto '=https' --tlsv1.2 -sSfL https://sh.vector.dev | bash -s -- -y --prefix /usr/local
 
-# Ejecuto el CURL que envia la info a DataDog
-RUN curl "https://${TB_HOST}.tinybird.co/v0/pipes/ep_datadog_pipes_stats.ndjson?token=${TB_TOKEN}" | vector --config vector-pipes-stats.toml
-RUN curl "https://${TB_HOST}.tinybird.co/v0/pipes/ep_datadog_ops_log.ndjson?token=${TB_TOKEN}" | vector --config vector-ops-log.toml
+# Ejecuto los CURLs que envia la info a DataDog
+ENTRYPOINT ["/usr/local/bin/shellCURLs.sh"]
