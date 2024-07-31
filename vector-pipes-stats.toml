@@ -18,7 +18,7 @@ inputs = ["parse"]
 type = "http"
 uri = "https://${TB_HOST}.tinybird.co/v0/events?name=datadog_integration&token=${TB_TOKEN}"
 encoding.codec = "json"
-encoding.only_fields = ["pipeline", "timestamp"]
+encoding.only_fields = ["pipe_full_name", "timestamp"]
 
 [transforms.parse]
 type = "remap"
@@ -26,7 +26,6 @@ inputs = [ "in" ]
 source = """
   . = parse_json!(.message)
   .timestamp = from_unix_timestamp!(.timestamp)
-  .pipeline = "pipe_stats"
 """
 
 [transforms.to_metric]
@@ -40,7 +39,7 @@ inputs = [ "parse" ]
   type = "gauge"
 
     [transforms.to_metric.metrics.tags]
-    pipe = "{{pipe_name}}"
+    pipe = "{{pipe_full_name}}"
 
   [[transforms.to_metric.metrics]]
   field = "duration_p99"
@@ -49,7 +48,7 @@ inputs = [ "parse" ]
   type = "gauge"
 
     [transforms.to_metric.metrics.tags]
-    pipe = "{{pipe_name}}"
+    pipe = "{{pipe_full_name}}"
 
   [[transforms.to_metric.metrics]]
   field = "count"
@@ -58,7 +57,7 @@ inputs = [ "parse" ]
   increment_by_value = true
 
     [transforms.to_metric.metrics.tags]
-    pipe = "{{pipe_name}}"
+    pipe = "{{pipe_full_name}}"
 
   [[transforms.to_metric.metrics]]
   field = "read_bytes"
@@ -67,4 +66,22 @@ inputs = [ "parse" ]
   increment_by_value = true
 
     [transforms.to_metric.metrics.tags]
-    pipe = "{{pipe_name}}"
+    pipe = "{{pipe_full_name}}"
+
+  [[transforms.to_metric.metrics]]
+  field = "error"
+  namespace = "tb.pipes"
+  type = "counter"
+  increment_by_value = true
+
+    [transforms.to_metric.metrics.tags]
+    pipe = "{{pipe_full_name}}"
+  
+  [[transforms.to_metric.metrics]]
+  field = "status_code"
+  namespace = "tb.pipes"
+  type = "counter"
+  increment_by_value = true
+
+    [transforms.to_metric.metrics.tags]
+    pipe = "{{pipe_full_name}}"    

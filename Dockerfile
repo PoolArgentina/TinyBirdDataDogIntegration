@@ -14,7 +14,7 @@ ENV TB_TOKEN=$A_TB_TOKEN
 WORKDIR /working_area
 
 # Copio el archivo de configuración de Vector
-COPY vector-pipes-stats-errors.toml .
+COPY vector-pipes-stats.toml .
 COPY vector-ops-log.toml .
 COPY shellCURLs.sh .
 
