@@ -25,7 +25,7 @@ type = "remap"
 inputs = [ "in" ]
 source = """
   . = parse_json!(.message)
-  .timestamp = from_unix_timestamp!(.timestamp)
+  .timestamp = to_timestamp!(.timestamp)
 """
 
 [transforms.to_metric]

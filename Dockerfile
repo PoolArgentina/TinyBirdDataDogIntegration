@@ -24,7 +24,7 @@ RUN chmod 777 /usr/local/bin/shellCURLs.sh
 
 # Instalo vector
 RUN apk add --no-cache curl bash && \ 
-    curl --proto '=https' --tlsv1.2 -sSfL https://sh.vector.dev | bash -s -- -y --prefix /usr/local
+    curl --proto '=https' --tlsv1.2 -sSfL https://sh.vector.dev | VECTOR_VERSION=0.29.1 bash -s -- -y --prefix /usr/local
 
 # Ejecuto los CURLs que envia la info a DataDog
 ENTRYPOINT ["/usr/local/bin/shellCURLs.sh"]
